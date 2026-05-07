@@ -1,0 +1,29 @@
+// io
+
+func void print(str text) {
+$$(
+    std::cout << text;
+)$$
+}
+
+func void println(str text) {
+$$(
+    std::cout << text << "\n";
+)$$
+}
+
+func str read() {
+$$(
+   std::string text;
+   std::cin >> text;
+   return text; 
+)$$
+}
+
+// math
+
+func f32 _sqrt(f32 a) {
+$$(
+    return std::sqrt(a);
+)$$
+} 

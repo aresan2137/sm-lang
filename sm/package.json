@@ -1,0 +1,23 @@
+{
+    "name": "sm",
+    "displayName": "sm",
+    "version": "0.0.1",
+    "publisher": "symsq",
+    "description": "",
+    "repository": { },
+    "engines": { "vscode": "^1.0.0" },
+    "categories": ["Programming Languages"],
+    "contributes": {
+        "languages": [{
+            "id": "sm",
+            "aliases": ["SM", "sm"],
+            "extensions": [".sm", ".hm"],
+            "configuration": "./language-configuration.json"
+        }],
+        "grammars": [{
+            "language": "sm",
+            "scopeName": "source.sm",
+            "path": "./syntaxes/sm.tmLanguage.json"
+        }]
+    }
+}

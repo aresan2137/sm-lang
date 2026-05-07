@@ -1,0 +1,68 @@
+{
+  "$schema": "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json",
+  "name": "SM",
+  "scopeName": "source.sm",
+  "patterns": [
+    { "include": "#comments" },
+    { "include": "#strings" },
+    { "include": "#keywords" },
+    { "include": "#types" },
+    { "include": "#numbers" },
+    { "include": "#cpp_blocks" },
+    { "include": "#functions" }
+  ],
+  "repository": {
+    "comments": {
+      "patterns": [
+        { "name": "comment.line.double-slash.sm", "match": "//.*" }
+      ]
+    },
+    "strings": {
+      "name": "string.quoted.double.sm",
+      "begin": "\"",
+      "end": "\"",
+      "patterns": [
+        { "name": "constant.character.escape.sm", "match": "\\\\." }
+      ]
+    },
+    "keywords": {
+      "patterns": [
+        {
+          "name": "keyword.control.sm",
+          "match": "\\b(func|ret|var|use|if|else|new|pub|class|enum)\\b"
+        }
+      ]
+    },
+    "types": {
+      "patterns": [
+        {
+          "name": "storage.type.sm",
+          "match": "\\b(i8|i16|i32|i64|u8|u16|u32|u64|f32|f64|void|str|bool|)\\b"
+        }
+      ]
+    },
+    "numbers": {
+      "patterns": [
+        { "name": "constant.numeric.sm", "match": "\\b\\d+(\\.\\d+)?\\b" }
+      ]
+    },
+    "functions": {
+      "patterns": [
+        {
+          "name": "entity.name.function.sm",
+          "match": "\\b[A-Za-z_]\\w*(?=\\s*\\()"
+        }
+      ]
+    },
+    "cpp_blocks": {
+      "name": "meta.embedded.block.cpp",
+      "begin": "\\$\\$\\(",
+      "beginCaptures": { "0": { "name": "punctuation.section.embedded.begin.sm" } },
+      "end": "\\)\\$\\$",
+      "endCaptures": { "0": { "name": "punctuation.section.embedded.end.sm" } },
+      "patterns": [
+        { "include": "source.cpp" }
+      ]
+    }
+  }
+}

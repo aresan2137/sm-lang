@@ -1,0 +1,442 @@
+[
+  {
+    "type": "KEY",
+    "value": "func",
+    "line": 3
+  },
+  {
+    "type": "VALUE",
+    "value": "void",
+    "line": 3
+  },
+  {
+    "type": "VALUE",
+    "value": "print",
+    "line": 3
+  },
+  {
+    "type": "BRACKET",
+    "value": "(",
+    "line": 3
+  },
+  {
+    "type": "VALUE",
+    "value": "str",
+    "line": 3
+  },
+  {
+    "type": "VALUE",
+    "value": "text",
+    "line": 3
+  },
+  {
+    "type": "BRACKET",
+    "value": ")",
+    "line": 3
+  },
+  {
+    "type": "BRACKET",
+    "value": "{",
+    "line": 3
+  },
+  {
+    "type": "CPP_BLOCK",
+    "value": "$$(\n    std::cout << text;\n)$$",
+    "line": 4
+  },
+  {
+    "type": "BRACKET",
+    "value": "}",
+    "line": 5
+  },
+  {
+    "type": "KEY",
+    "value": "func",
+    "line": 7
+  },
+  {
+    "type": "VALUE",
+    "value": "void",
+    "line": 7
+  },
+  {
+    "type": "VALUE",
+    "value": "println",
+    "line": 7
+  },
+  {
+    "type": "BRACKET",
+    "value": "(",
+    "line": 7
+  },
+  {
+    "type": "VALUE",
+    "value": "str",
+    "line": 7
+  },
+  {
+    "type": "VALUE",
+    "value": "text",
+    "line": 7
+  },
+  {
+    "type": "BRACKET",
+    "value": ")",
+    "line": 7
+  },
+  {
+    "type": "BRACKET",
+    "value": "{",
+    "line": 7
+  },
+  {
+    "type": "CPP_BLOCK",
+    "value": "$$(\n    std::cout << text << \"\\n\";\n)$$",
+    "line": 8
+  },
+  {
+    "type": "BRACKET",
+    "value": "}",
+    "line": 9
+  },
+  {
+    "type": "KEY",
+    "value": "func",
+    "line": 11
+  },
+  {
+    "type": "VALUE",
+    "value": "str",
+    "line": 11
+  },
+  {
+    "type": "VALUE",
+    "value": "read",
+    "line": 11
+  },
+  {
+    "type": "BRACKET",
+    "value": "(",
+    "line": 11
+  },
+  {
+    "type": "BRACKET",
+    "value": ")",
+    "line": 11
+  },
+  {
+    "type": "BRACKET",
+    "value": "{",
+    "line": 11
+  },
+  {
+    "type": "CPP_BLOCK",
+    "value": "$$(\n   std::string text;\n   std::cin >> text;\n   return text; \n)$$",
+    "line": 12
+  },
+  {
+    "type": "BRACKET",
+    "value": "}",
+    "line": 13
+  },
+  {
+    "type": "KEY",
+    "value": "func",
+    "line": 17
+  },
+  {
+    "type": "VALUE",
+    "value": "f32",
+    "line": 17
+  },
+  {
+    "type": "VALUE",
+    "value": "_sqrt",
+    "line": 17
+  },
+  {
+    "type": "BRACKET",
+    "value": "(",
+    "line": 17
+  },
+  {
+    "type": "VALUE",
+    "value": "f32",
+    "line": 17
+  },
+  {
+    "type": "VALUE",
+    "value": "a",
+    "line": 17
+  },
+  {
+    "type": "BRACKET",
+    "value": ")",
+    "line": 17
+  },
+  {
+    "type": "BRACKET",
+    "value": "{",
+    "line": 17
+  },
+  {
+    "type": "CPP_BLOCK",
+    "value": "$$(\n    return std::sqrt(a);\n)$$",
+    "line": 18
+  },
+  {
+    "type": "BRACKET",
+    "value": "}",
+    "line": 19
+  },
+  {
+    "type": "KEY",
+    "value": "func",
+    "line": 21
+  },
+  {
+    "type": "VALUE",
+    "value": "i32",
+    "line": 21
+  },
+  {
+    "type": "VALUE",
+    "value": "main",
+    "line": 21
+  },
+  {
+    "type": "BRACKET",
+    "value": "(",
+    "line": 21
+  },
+  {
+    "type": "BRACKET",
+    "value": ")",
+    "line": 21
+  },
+  {
+    "type": "BRACKET",
+    "value": "{",
+    "line": 21
+  },
+  {
+    "type": "KEY",
+    "value": "var",
+    "line": 22
+  },
+  {
+    "type": "VALUE",
+    "value": "i32",
+    "line": 22
+  },
+  {
+    "type": "VALUE",
+    "value": "licz",
+    "line": 22
+  },
+  {
+    "type": "SYMBOL",
+    "value": "=",
+    "line": 22
+  },
+  {
+    "type": "NUMBER",
+    "value": "0",
+    "line": 22
+  },
+  {
+    "type": "SEMICOLON",
+    "value": ";",
+    "line": 22
+  },
+  {
+    "type": "KEY",
+    "value": "var",
+    "line": 23
+  },
+  {
+    "type": "VALUE",
+    "value": "arr",
+    "line": 23
+  },
+  {
+    "type": "SYMBOL",
+    "value": "<",
+    "line": 23
+  },
+  {
+    "type": "VALUE",
+    "value": "i32",
+    "line": 23
+  },
+  {
+    "type": "SYMBOL",
+    "value": ">",
+    "line": 23
+  },
+  {
+    "type": "VALUE",
+    "value": "licz2",
+    "line": 23
+  },
+  {
+    "type": "SEMICOLON",
+    "value": ";",
+    "line": 23
+  },
+  {
+    "type": "KEY",
+    "value": "if",
+    "line": 25
+  },
+  {
+    "type": "BRACKET",
+    "value": "(",
+    "line": 25
+  },
+  {
+    "type": "VALUE",
+    "value": "licz",
+    "line": 25
+  },
+  {
+    "type": "SYMBOL",
+    "value": ">=",
+    "line": 25
+  },
+  {
+    "type": "NUMBER",
+    "value": "0",
+    "line": 25
+  },
+  {
+    "type": "BRACKET",
+    "value": ")",
+    "line": 25
+  },
+  {
+    "type": "BRACKET",
+    "value": "{",
+    "line": 25
+  },
+  {
+    "type": "VALUE",
+    "value": "println",
+    "line": 26
+  },
+  {
+    "type": "BRACKET",
+    "value": "(",
+    "line": 26
+  },
+  {
+    "type": "STRING",
+    "value": "\"osoba\"",
+    "line": 26
+  },
+  {
+    "type": "BRACKET",
+    "value": ")",
+    "line": 26
+  },
+  {
+    "type": "SEMICOLON",
+    "value": ";",
+    "line": 26
+  },
+  {
+    "type": "BRACKET",
+    "value": "}",
+    "line": 27
+  },
+  {
+    "type": "KEY",
+    "value": "else",
+    "line": 27
+  },
+  {
+    "type": "BRACKET",
+    "value": "{",
+    "line": 27
+  },
+  {
+    "type": "BRACKET",
+    "value": "}",
+    "line": 29
+  },
+  {
+    "type": "VALUE",
+    "value": "while",
+    "line": 31
+  },
+  {
+    "type": "BRACKET",
+    "value": "(",
+    "line": 31
+  },
+  {
+    "type": "NUMBER",
+    "value": "1",
+    "line": 31
+  },
+  {
+    "type": "SYMBOL",
+    "value": "==",
+    "line": 31
+  },
+  {
+    "type": "NUMBER",
+    "value": "1",
+    "line": 31
+  },
+  {
+    "type": "BRACKET",
+    "value": ")",
+    "line": 31
+  },
+  {
+    "type": "BRACKET",
+    "value": "{",
+    "line": 31
+  },
+  {
+    "type": "BRACKET",
+    "value": "}",
+    "line": 33
+  },
+  {
+    "type": "KEY",
+    "value": "var",
+    "line": 35
+  },
+  {
+    "type": "VALUE",
+    "value": "i32",
+    "line": 35
+  },
+  {
+    "type": "VALUE",
+    "value": "elo",
+    "line": 35
+  },
+  {
+    "type": "SYMBOL",
+    "value": "=",
+    "line": 35
+  },
+  {
+    "type": "NUMBER",
+    "value": "29",
+    "line": 35
+  },
+  {
+    "type": "SEMICOLON",
+    "value": ";",
+    "line": 35
+  },
+  {
+    "type": "BRACKET",
+    "value": "}",
+    "line": 36
+  }
+]
