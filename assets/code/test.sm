@@ -1,0 +1,5 @@
+use "assets/code/std.hm"
+
+func i32 main() {
+    println("COMPILING");
+}

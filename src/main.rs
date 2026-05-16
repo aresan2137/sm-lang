@@ -14,12 +14,12 @@ fn main() {
     let pre = pre_ast::pre_parse(&lexer_output);
     let vars = var_find::find_var(&pre);
     let ast = ast::ast::parse_ast(&pre, &vars);
-    let code = cpp_maker::make_cpp(&ast);
+    let code = cpp_maker::make_cpp(&ast, &vars);
 
     fs::write("assets/out.cpp", code).expect("failed to save file");
     
     priti_print();
-    //compile_and_run();
+    compile_and_run();
 }
 
 #[allow(dead_code)]

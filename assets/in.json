@@ -140,303 +140,323 @@
     "line": 13
   },
   {
+    "type": "CPP_BLOCK",
+    "value": "$$(\n#include <sstream>\n#include <fstream>\n)$$",
+    "line": 15
+  },
+  {
     "type": "KEY",
     "value": "func",
+    "line": 16
+  },
+  {
+    "type": "VALUE",
+    "value": "str",
+    "line": 16
+  },
+  {
+    "type": "VALUE",
+    "value": "load",
+    "line": 16
+  },
+  {
+    "type": "BRACKET",
+    "value": "(",
+    "line": 16
+  },
+  {
+    "type": "VALUE",
+    "value": "str",
+    "line": 16
+  },
+  {
+    "type": "VALUE",
+    "value": "FilePath",
+    "line": 16
+  },
+  {
+    "type": "BRACKET",
+    "value": ")",
+    "line": 16
+  },
+  {
+    "type": "BRACKET",
+    "value": "{",
+    "line": 16
+  },
+  {
+    "type": "CPP_BLOCK",
+    "value": "$$(\n    std::ifstream file(FilePath);\n\n    if (!file.is_open()) {\n        error(\"File can't be opened: \" + FilePath); \n    }\n\n    std::stringstream buffer;\n    buffer << file.rdbuf();\n    std::string data = buffer.str();\n\n    return data;\n)$$",
     "line": 17
+  },
+  {
+    "type": "BRACKET",
+    "value": "}",
+    "line": 18
+  },
+  {
+    "type": "KEY",
+    "value": "func",
+    "line": 20
+  },
+  {
+    "type": "VALUE",
+    "value": "i32",
+    "line": 20
+  },
+  {
+    "type": "VALUE",
+    "value": "sysCall",
+    "line": 20
+  },
+  {
+    "type": "BRACKET",
+    "value": "(",
+    "line": 20
+  },
+  {
+    "type": "VALUE",
+    "value": "str",
+    "line": 20
+  },
+  {
+    "type": "VALUE",
+    "value": "command",
+    "line": 20
+  },
+  {
+    "type": "BRACKET",
+    "value": ")",
+    "line": 20
+  },
+  {
+    "type": "BRACKET",
+    "value": "{",
+    "line": 20
+  },
+  {
+    "type": "CPP_BLOCK",
+    "value": "$$(\n   return system(command.c_str());\n)$$",
+    "line": 21
+  },
+  {
+    "type": "BRACKET",
+    "value": "}",
+    "line": 22
+  },
+  {
+    "type": "KEY",
+    "value": "func",
+    "line": 26
   },
   {
     "type": "VALUE",
     "value": "f32",
-    "line": 17
+    "line": 26
   },
   {
     "type": "VALUE",
     "value": "_sqrt",
-    "line": 17
+    "line": 26
   },
   {
     "type": "BRACKET",
     "value": "(",
-    "line": 17
+    "line": 26
   },
   {
     "type": "VALUE",
     "value": "f32",
-    "line": 17
+    "line": 26
   },
   {
     "type": "VALUE",
     "value": "a",
-    "line": 17
+    "line": 26
   },
   {
     "type": "BRACKET",
     "value": ")",
-    "line": 17
+    "line": 26
   },
   {
     "type": "BRACKET",
     "value": "{",
-    "line": 17
+    "line": 26
   },
   {
     "type": "CPP_BLOCK",
     "value": "$$(\n    return std::sqrt(a);\n)$$",
-    "line": 18
+    "line": 27
   },
   {
     "type": "BRACKET",
     "value": "}",
-    "line": 19
+    "line": 28
+  },
+  {
+    "type": "CPP_BLOCK",
+    "value": "$$(\nvoid log(std::string text);\nvoid error(std::string text);\n)$$",
+    "line": 31
   },
   {
     "type": "KEY",
     "value": "func",
-    "line": 21
+    "line": 33
+  },
+  {
+    "type": "VALUE",
+    "value": "void",
+    "line": 33
+  },
+  {
+    "type": "VALUE",
+    "value": "log",
+    "line": 33
+  },
+  {
+    "type": "BRACKET",
+    "value": "(",
+    "line": 33
+  },
+  {
+    "type": "VALUE",
+    "value": "str",
+    "line": 33
+  },
+  {
+    "type": "VALUE",
+    "value": "text",
+    "line": 33
+  },
+  {
+    "type": "BRACKET",
+    "value": ")",
+    "line": 33
+  },
+  {
+    "type": "BRACKET",
+    "value": "{",
+    "line": 33
+  },
+  {
+    "type": "CPP_BLOCK",
+    "value": "$$(\n    std::cout << \"Log: \" << text << \"\\n\";\n)$$",
+    "line": 34
+  },
+  {
+    "type": "BRACKET",
+    "value": "}",
+    "line": 35
+  },
+  {
+    "type": "KEY",
+    "value": "func",
+    "line": 37
+  },
+  {
+    "type": "VALUE",
+    "value": "void",
+    "line": 37
+  },
+  {
+    "type": "VALUE",
+    "value": "error",
+    "line": 37
+  },
+  {
+    "type": "BRACKET",
+    "value": "(",
+    "line": 37
+  },
+  {
+    "type": "VALUE",
+    "value": "str",
+    "line": 37
+  },
+  {
+    "type": "VALUE",
+    "value": "text",
+    "line": 37
+  },
+  {
+    "type": "BRACKET",
+    "value": ")",
+    "line": 37
+  },
+  {
+    "type": "BRACKET",
+    "value": "{",
+    "line": 37
+  },
+  {
+    "type": "CPP_BLOCK",
+    "value": "$$(\n    std::cout << \"Error: \" << text << \"\\n\";\n    __debugbreak();\n    abort();\n)$$",
+    "line": 38
+  },
+  {
+    "type": "BRACKET",
+    "value": "}",
+    "line": 39
+  },
+  {
+    "type": "KEY",
+    "value": "func",
+    "line": 41
   },
   {
     "type": "VALUE",
     "value": "i32",
-    "line": 21
+    "line": 41
   },
   {
     "type": "VALUE",
     "value": "main",
-    "line": 21
+    "line": 41
   },
   {
     "type": "BRACKET",
     "value": "(",
-    "line": 21
+    "line": 41
   },
   {
     "type": "BRACKET",
     "value": ")",
-    "line": 21
+    "line": 41
   },
   {
     "type": "BRACKET",
     "value": "{",
-    "line": 21
-  },
-  {
-    "type": "KEY",
-    "value": "var",
-    "line": 22
-  },
-  {
-    "type": "VALUE",
-    "value": "i32",
-    "line": 22
-  },
-  {
-    "type": "VALUE",
-    "value": "licz",
-    "line": 22
-  },
-  {
-    "type": "SYMBOL",
-    "value": "=",
-    "line": 22
-  },
-  {
-    "type": "NUMBER",
-    "value": "0",
-    "line": 22
-  },
-  {
-    "type": "SEMICOLON",
-    "value": ";",
-    "line": 22
-  },
-  {
-    "type": "KEY",
-    "value": "var",
-    "line": 23
-  },
-  {
-    "type": "VALUE",
-    "value": "arr",
-    "line": 23
-  },
-  {
-    "type": "SYMBOL",
-    "value": "<",
-    "line": 23
-  },
-  {
-    "type": "VALUE",
-    "value": "i32",
-    "line": 23
-  },
-  {
-    "type": "SYMBOL",
-    "value": ">",
-    "line": 23
-  },
-  {
-    "type": "VALUE",
-    "value": "licz2",
-    "line": 23
-  },
-  {
-    "type": "SEMICOLON",
-    "value": ";",
-    "line": 23
-  },
-  {
-    "type": "KEY",
-    "value": "if",
-    "line": 25
-  },
-  {
-    "type": "BRACKET",
-    "value": "(",
-    "line": 25
-  },
-  {
-    "type": "VALUE",
-    "value": "licz",
-    "line": 25
-  },
-  {
-    "type": "SYMBOL",
-    "value": ">=",
-    "line": 25
-  },
-  {
-    "type": "NUMBER",
-    "value": "0",
-    "line": 25
-  },
-  {
-    "type": "BRACKET",
-    "value": ")",
-    "line": 25
-  },
-  {
-    "type": "BRACKET",
-    "value": "{",
-    "line": 25
+    "line": 41
   },
   {
     "type": "VALUE",
     "value": "println",
-    "line": 26
+    "line": 42
   },
   {
     "type": "BRACKET",
     "value": "(",
-    "line": 26
+    "line": 42
   },
   {
     "type": "STRING",
-    "value": "\"osoba\"",
-    "line": 26
+    "value": "\"COMPILING\"",
+    "line": 42
   },
   {
     "type": "BRACKET",
     "value": ")",
-    "line": 26
+    "line": 42
   },
   {
     "type": "SEMICOLON",
     "value": ";",
-    "line": 26
+    "line": 42
   },
   {
     "type": "BRACKET",
     "value": "}",
-    "line": 27
-  },
-  {
-    "type": "KEY",
-    "value": "else",
-    "line": 27
-  },
-  {
-    "type": "BRACKET",
-    "value": "{",
-    "line": 27
-  },
-  {
-    "type": "BRACKET",
-    "value": "}",
-    "line": 29
-  },
-  {
-    "type": "VALUE",
-    "value": "while",
-    "line": 31
-  },
-  {
-    "type": "BRACKET",
-    "value": "(",
-    "line": 31
-  },
-  {
-    "type": "NUMBER",
-    "value": "1",
-    "line": 31
-  },
-  {
-    "type": "SYMBOL",
-    "value": "==",
-    "line": 31
-  },
-  {
-    "type": "NUMBER",
-    "value": "1",
-    "line": 31
-  },
-  {
-    "type": "BRACKET",
-    "value": ")",
-    "line": 31
-  },
-  {
-    "type": "BRACKET",
-    "value": "{",
-    "line": 31
-  },
-  {
-    "type": "BRACKET",
-    "value": "}",
-    "line": 33
-  },
-  {
-    "type": "KEY",
-    "value": "var",
-    "line": 35
-  },
-  {
-    "type": "VALUE",
-    "value": "i32",
-    "line": 35
-  },
-  {
-    "type": "VALUE",
-    "value": "elo",
-    "line": 35
-  },
-  {
-    "type": "SYMBOL",
-    "value": "=",
-    "line": 35
-  },
-  {
-    "type": "NUMBER",
-    "value": "29",
-    "line": 35
-  },
-  {
-    "type": "SEMICOLON",
-    "value": ";",
-    "line": 35
-  },
-  {
-    "type": "BRACKET",
-    "value": "}",
-    "line": 36
+    "line": 43
   }
 ]

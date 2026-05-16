@@ -1,26 +1,17 @@
 use "assets/code/std.hm"
+use "assets/code/lexer.hm"
+
+$$(
+#include <filesystem>
+)$$
 
 func i32 main() {
-    var i32 licz = 0;
-    var arr<i32> licz2;
-    licz2.push();
+$$(
+    std::filesystem::path project_root = std::filesystem::current_path();
+    std::filesystem::current_path(std::filesystem::temp_directory_path());
+    std::filesystem::current_path(project_root);
+)$$
+    println("COMPILING");
 
-    if (licz >= 0) {
-        println("osoba");
-    } else {
-        
-    }
-
-    while (1 == 1) {
-
-    }
-
-    var i32 elo = 29;
+    var arr<Token> tokens = tokenize("assets/code/test.sm");
 }
-
-// pointers
-// arrays
-// class
-// inplicid change (float)
-// ininplicid change string
-// .. for string add

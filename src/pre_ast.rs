@@ -1,8 +1,8 @@
 use crate::lexer::{Token, TokenType};
-use crate::ast::ast_tools::{ parse_type };
+use crate::ast::ast_tools::{ parse_name, parse_type };
 
 pub struct Func {
-    pub name: String,
+    pub name: Vec<Token>,
     pub ret_type: Vec<Token>,
     pub args: Vec<Token>,
     pub body: Vec<Token>
@@ -10,7 +10,7 @@ pub struct Func {
 
 pub struct PreAST {
     pub functions: Vec<Func>,
-    pub glob_inlines: Vec<Token>
+    pub glob_inlines: Vec<String>
 }
 
 pub fn pre_parse(tokens: &Vec<Token>) -> PreAST {
@@ -22,7 +22,8 @@ pub fn pre_parse(tokens: &Vec<Token>) -> PreAST {
             if t.value == "func" {
                 ast.functions.push(parse_function(tokens, &mut i));
             } else if t.token_type == TokenType::CppBlock {
-                ast.glob_inlines.push(t.clone());
+                
+                ast.glob_inlines.push(t.value.replace("$$(", "").replace(")$$", "").trim().to_string());
                 i += 1;
             } else {
                 i += 1;
@@ -37,7 +38,7 @@ pub fn pre_parse(tokens: &Vec<Token>) -> PreAST {
 fn parse_function(tokens: &Vec<Token>, i: &mut usize) -> Func {
     expect(tokens, i, TokenType::Key, "func".to_string());
     let ret_type = parse_type(tokens, i);
-    let name = expect(tokens, i, TokenType::Value, "".to_string()).value;
+    let name = parse_name(tokens, i);
 
     expect(tokens, i, TokenType::Bracket, "(".to_string());
     
@@ -100,7 +101,7 @@ fn next(tokens: &Vec<Token>, i: &mut usize) -> Token {
 fn expect(tokens: &Vec<Token>, i: &mut usize, token_type: TokenType, value: String) -> Token {
     let token = next(tokens, i);
     
-    if token.token_type != token_type { panic!("preAST: expect(): unsuspected token type"); }
+    if token.token_type != token_type { panic!("preAST: expect(): unsuspected token type. WANT: {:?} GOT: {:?},{:?}", token_type, token.token_type, token.value); }
     if !value.is_empty() && token.value != value { panic!("preAST: expect(): token value different"); }
     
     return token;

@@ -1,4 +1,4 @@
-use std::{fs, process::exit};
+use std::fs;
 use std::process::Command;
 use serde::Deserialize;
 
@@ -20,6 +20,7 @@ pub enum TokenType {
 }
 
 #[derive(Deserialize, Debug, Clone)]
+#[derive(PartialEq)]
 pub struct Token {
     pub value: String,
     #[serde(rename = "type")]

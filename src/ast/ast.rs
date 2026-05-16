@@ -36,6 +36,11 @@ pub enum Part {
         func_name: String, 
         args: Vec<Tree>
     },
+    MethodCall {
+        object: Tree,
+        method_name: String,
+        args: Vec<Tree>
+    },
     CppBlock(String),
     If {
         value: Tree
@@ -50,7 +55,7 @@ pub enum Part {
 
 #[derive(Debug)]
 pub struct FunctionAST {
-    pub name: String,
+    pub name: Vec<Token>,
     pub ret_type: Vec<Token>,
     pub body: Part,
     pub args: Vec<Token>
@@ -59,7 +64,7 @@ pub struct FunctionAST {
 #[derive(Debug)]
 pub struct AST {
     pub functions: Vec<FunctionAST>,
-    pub glob_inlines: Vec<Token>
+    pub glob_inlines: Vec<String>
 }
 
 pub fn parse_ast(pre_ast: &PreAST, vars: &Vars) -> AST {
@@ -91,11 +96,16 @@ pub fn parse_ast(pre_ast: &PreAST, vars: &Vars) -> AST {
 fn create_part(tokens: &Vec<Token>, pos: &mut usize, pre_ast: &PreAST, vars: &Vars) -> Option<Part> {
     if *pos >= tokens.len() { return None; }
     let t = &tokens[*pos];
-    *pos += 1;
+
+    if t.token_type == TokenType::CppBlock {
+        *pos += 1;
+        let code = t.value.replace("$$(", "").replace(")$$", "").trim().to_string();
+        return Some(Part::CppBlock(code));
+    }
 
     if t.value == "{" {
+        *pos += 1;
         let mut inner = Vec::new();
-
         while *pos < tokens.len() && tokens[*pos].value != "}" {
             if let Some(p) = create_part(tokens, pos, pre_ast, vars) {
                 inner.push(p);
@@ -103,64 +113,110 @@ fn create_part(tokens: &Vec<Token>, pos: &mut usize, pre_ast: &PreAST, vars: &Va
         }
         if *pos < tokens.len() { *pos += 1; }
         return Some(Part::Parts { parts: inner });
-    } else if t.token_type == TokenType::CppBlock {
-        let code = t.value.replace("$$(", "").replace(")$$", "").trim().to_string();
-        return Some(Part::CppBlock(code));
-    } else if t.value == "ret" {
-        if compare_with_incr(tokens, pos, ";"){
+    }
+
+    if t.value == "ret" {
+        *pos += 1;
+        if compare_with_incr(tokens, pos, ";") {
             return Some(Part::RetVoid {});
         }
-
         return Some(Part::Ret { 
             value: tree_with_scaning_until_str(&tokens, pos, ";")
         });
-    } else if is_a_function(t.value.clone(), pre_ast) {
-        *pos -= 1;
-        let tree = tree_with_scaning_until_str(tokens, pos, ";");
-        if let Tree::Call { func_name, args } = tree {
-            return Some(Part::FuncCall { func_name, args });
-        }
-    } else if t.value == "if" {
-        *pos += 1; // (
+    }
 
-        let tree = tree_with_scaning_until_str(&tokens, pos, ")");
+    if t.value == "if" {
+        *pos += 1;
+        let tree = tree_with_scaning_until_bracket_stack_empty(&tokens, pos);
+        return Some(Part::If { value: tree });
+    }
 
-        return Some(Part::If {
-            value: tree
-        });
-    } else if t.value == "else" {
+    if t.value == "else" {
+        *pos += 1;
         return Some(Part::Else {}); 
-    } else if t.value == "while" {
-        *pos += 1; // (
+    }
 
-        let tree = tree_with_scaning_until_str(&tokens, pos, ")");
+    if t.value == "while" {
+        *pos += 1;
+        let tree = tree_with_scaning_until_bracket_stack_empty(&tokens, pos);
+        return Some(Part::While { value: tree });
+    }
 
-        return Some(Part::While {
-            value: tree
-        });
-    } else if t.value == "var" {
+    if t.value == "var" {
+        *pos += 1;
         let v_type = parse_type(tokens, pos); 
-        
-        let v_name = tokens[*pos].value.clone(); *pos += 1;
+        let v_name = tokens[*pos].value.clone(); 
+        *pos += 1;
         if *pos < tokens.len() && tokens[*pos].value == "=" {
             *pos += 1;
-            
             return Some(Part::Var { var_type: v_type, var_name: v_name, value: tree_with_scaning_until_str(tokens, pos, ";"), is_bodyless: false });
         } else if *pos < tokens.len() && tokens[*pos].value == ";" {            
             *pos += 1;
             return Some(Part::Var { var_type: v_type, var_name: v_name, value: Tree::Leaf(String::from("0")), is_bodyless: true});
         } else {
-            panic!("ast: var");
+            panic!("ast: var error at {}", v_name);
         }
-    } else if vars.vars.contains(&t.value) {
+    }
+
+    if is_a_function(tokens, *pos) {
+        let tree = tree_with_scaning_until_str(tokens, pos, ";");
+        match tree {
+            Tree::Call { func_name, args } => {
+                return Some(Part::FuncCall { func_name, args });
+            }
+            Tree::MethodCall { object, method_name, args } => {
+                return Some(Part::MethodCall { object: *object, method_name, args });
+            }
+            _ => return None,
+        }
+    }
+
+    let mut exists = false;
+    for v in &vars.vars {
+        if v.name == t.value {
+            exists = true;
+            break;
+        }
+    }
+
+    if exists {
+        *pos += 1;
         return Some(parse_var_change(tokens, pos, &t));
     }
 
+    *pos += 1;
     return None;
 }
 
 fn parse_var_change(tokens: &Vec<Token>, pos: &mut usize, t: &Token) -> Part {
-    let name = t.value.clone();
+    let mut name = t.value.clone();
+    
+    while *pos < tokens.len() && (tokens[*pos].value == "." || tokens[*pos].value == "[") {
+        if tokens[*pos].value == "." {
+            name.push('.');
+            *pos += 1;
+            if *pos < tokens.len() {
+                name.push_str(&tokens[*pos].value);
+                *pos += 1;
+            }
+        } else if tokens[*pos].value == "[" {
+            name.push('[');
+            *pos += 1;
+            
+            // Zbierz wszystko wewnątrz klamer [ ] (np. indeks, zmienną lub wyrażenie)
+            while *pos < tokens.len() && tokens[*pos].value != "]" {
+                name.push_str(&tokens[*pos].value);
+                *pos += 1;
+            }
+            
+            if *pos < tokens.len() && tokens[*pos].value == "]" {
+                name.push(']');
+                *pos += 1;
+            } else {
+                panic!("ast: var_change: expected ']'");
+            }
+        }
+    }
 
     if tokens[*pos].value == "++" {
         *pos += 2;
@@ -215,12 +271,24 @@ fn parse_var_change(tokens: &Vec<Token>, pos: &mut usize, t: &Token) -> Part {
     };    
 }
 
-fn is_a_function(stre: String, pre_ast: &PreAST) -> bool {
-    for func in &pre_ast.functions {
-        if func.name == stre {
-            return true;
+fn is_a_function(tokens: &[Token], pos: usize) -> bool {
+    let mut i = pos;
+    if i >= tokens.len() { return false; }
+
+    i += 1;
+
+    while i < tokens.len() && tokens[i].value == "." {
+        i += 1;
+        if i < tokens.len() {
+            i += 1;
+        } else {
+            return false;
         }
     }
-    return false;
-}
 
+    if i < tokens.len() && tokens[i].value == "(" {
+        return true;
+    }
+
+    false
+}

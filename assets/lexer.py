@@ -10,7 +10,7 @@ TOKEN_SPEC = [
     ('NUMBER', r'\d+(\.\d+)?'),
     ('STRING', r'"[^"]*"'),
     ('SCOPE', r'::'),
-    ('SYMBOL', r'\+=|-=|\*=|/=|==|!=|<=|>=|\+\+|--|&&|\|\||[+\-*/%&|^<>!=]'),
+    ('SYMBOL', r'\+=|-=|\*=|/=|==|!=|<=|>=|\+\+|--|&&|\|\||\.\.|[+\-*/%&|^<>!=]'),
     ('ASSIGN', r'='),
     ('MEMBER', r'\.'),
     ('BRACKET', r'[\(\)\[\]\{\}]'),
@@ -27,7 +27,7 @@ def preprocess(code, current_file_path):
     new_lines = []
     
     for line in code.splitlines():
-        match = re.search(r'use\s+"([^"]+)"', line)
+        match = re.search(r'^\s*(?!\/\/)\s*use\s+"([^"]+)"', line)
         if match:
             include_path = match.group(1)
             potential_paths = [

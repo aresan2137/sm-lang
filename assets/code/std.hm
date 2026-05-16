@@ -20,6 +20,32 @@ $$(
 )$$
 }
 
+$$(
+#include <sstream>
+#include <fstream>
+)$$
+func str load(str FilePath) {
+$$(
+    std::ifstream file(FilePath);
+
+    if (!file.is_open()) {
+        error("File can't be opened: " + FilePath); 
+    }
+
+    std::stringstream buffer;
+    buffer << file.rdbuf();
+    std::string data = buffer.str();
+
+    return data;
+)$$
+}
+
+func i32 sysCall(str command) {
+$$(
+   return system(command.c_str());
+)$$
+}
+
 // math
 
 func f32 _sqrt(f32 a) {
@@ -27,3 +53,23 @@ $$(
     return std::sqrt(a);
 )$$
 } 
+
+// helpe
+$$(
+void log(std::string text);
+void error(std::string text);
+)$$
+
+func void log(str text) {
+$$(
+    std::cout << "Log: " << text << "\n";
+)$$
+}
+
+func void error(str text) {
+$$(
+    std::cout << "Error: " << text << "\n";
+    __debugbreak();
+    abort();
+)$$
+}
